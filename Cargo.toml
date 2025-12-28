@@ -1,0 +1,37 @@
+[package]
+name = "cache_bench"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "cache_bench"
+path = "src/lib.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.bench]
+lto = true
+codegen-units = 1
+debug = true
+
+[dependencies]
+compio = { version = "0.17.0", features = ["macros", "time"] }
+mini-moka = "0.10.3"
+hashlink = "0.11.0"
+lru = "0.16.2"
+rand = { version = "0.9.2", features = ["small_rng"] }
+rand_distr = "0.5.1"
+rand_chacha = "0.9.0"                                          # 用于可复现的随机数
+futures-util = "0.3"
+
+[dev-dependencies]
+criterion = { version = "0.8", features = [
+  "html_reports",
+] } # 使用 compio 而不是 tokio
+
+[[bench]]
+name = "cache_comparison"
+harness = false

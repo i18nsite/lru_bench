@@ -1,0 +1,6 @@
+[build]
+# 启用优化的构建配置
+rustflags = ["-C", "target-cpu=native"]
+
+[target.'cfg(target_os = "macos")']
+rustflags = ["-C", "target-cpu=native", "-C", "link-args=-Wl,-ld_classic"]
